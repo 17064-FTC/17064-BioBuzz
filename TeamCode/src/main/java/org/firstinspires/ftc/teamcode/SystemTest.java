@@ -44,7 +44,22 @@ public class SystemTest extends TurtleOpMode {
         }
 
 
+        telemetry.addLine("Left bumper = intake");
+        if (gamepad1.left_bumper) {
+            intake.startIntake();
 
+        } else {
+            intake.stopIntake();
+        }
+
+
+        telemetry.addLine("Right bumper = randomValue");
+        if (gamepad1.right_bumper) {
+            delivery.startDelivery();
+
+        } else {
+            delivery.stopDelivery();
+        }
     }
 
 }
