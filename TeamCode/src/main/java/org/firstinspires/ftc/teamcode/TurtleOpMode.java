@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.subsystems.DeliverySubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.ShooterSubsystem;
 
 
 public class TurtleOpMode extends OpMode {
@@ -13,6 +14,7 @@ public class TurtleOpMode extends OpMode {
     DriveSubsystem drive;
     IntakeSubsystem intake;
     DeliverySubsystem delivery;
+    ShooterSubsystem shooter;
 
 
     @Override
@@ -20,6 +22,7 @@ public class TurtleOpMode extends OpMode {
         drive = new DriveSubsystem(telemetry, hardwareMap);
         intake = new IntakeSubsystem(hardwareMap);
         delivery = new DeliverySubsystem(hardwareMap);
+        shooter = new ShooterSubsystem(hardwareMap);
     }
 
     @Override

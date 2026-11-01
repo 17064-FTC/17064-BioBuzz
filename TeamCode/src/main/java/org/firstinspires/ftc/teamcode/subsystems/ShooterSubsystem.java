@@ -15,7 +15,7 @@ public class ShooterSubsystem {
     }
 
     public void startShooter(){
-        Shooter.setPower(1);
+        Shooter.setPower(0.5);
 
     }
 

@@ -14,7 +14,7 @@ public class BasicTeleOp extends TurtleOpMode {
     @Override
     public void loop() {
         super.loop();
-        //drive.fieldCentricDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+        drive.fieldCentricDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
 
 
@@ -22,19 +22,31 @@ public class BasicTeleOp extends TurtleOpMode {
             drive.zeroGyro();
         }
 
-//        if(gamepad1.a){
-//            elbow.setMotorPower(0.5);
-//
-//        }
-//
-//        if(gamepad1.b){
-//            shoulder.setMotorPower(0.5);
-//
-//        }
-//
-//        if(gamepad1.y){
-//            arm.setMotorPower(0.5);
-//
-//        }
+
+        telemetry.addLine("Operator - Left Bumper = intake");
+        if (gamepad2.left_bumper) {
+            intake.startIntake();
+
+        } else {
+            intake.stopIntake();
+        }
+
+
+        telemetry.addLine("Driver - Right bumper = Feeder");
+        if (gamepad1.right_bumper) {
+            delivery.startDelivery();
+
+        } else {
+            delivery.stopDelivery();
+        }
+
+        telemetry.addLine("Operator - Right Bumper = Shooter");
+        if (gamepad2.right_bumper) {
+            shooter.startShooter();
+
+        } else {
+            shooter.stopShooter();
+        }
+
     }
 }

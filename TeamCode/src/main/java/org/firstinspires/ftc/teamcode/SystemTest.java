@@ -60,6 +60,14 @@ public class SystemTest extends TurtleOpMode {
         } else {
             delivery.stopDelivery();
         }
+
+        telemetry.addLine("DPad Up = Shooter");
+        if (gamepad1.dpad_up) {
+            shooter.startShooter();
+
+        } else {
+            shooter.stopShooter();
+        }
     }
 
 }

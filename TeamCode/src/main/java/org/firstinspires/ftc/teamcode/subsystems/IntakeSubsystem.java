@@ -14,22 +14,22 @@ public class IntakeSubsystem {
 
     public IntakeSubsystem(HardwareMap hardwareMap){
         Intake = hardwareMap.get(DcMotor.class,"Intake");
-        Leftservo = hardwareMap.get(CRServo.class,"Leftservo");
-        Rightservo = hardwareMap.get(CRServo.class,"Rightservo");
+//        Leftservo = hardwareMap.get(CRServo.class,"Leftservo");
+//        Rightservo = hardwareMap.get(CRServo.class,"Rightservo");
 
 
     }
 
     public void startIntake(){
         Intake.setPower(1);
-        Leftservo.setPower(1);
-        Rightservo.setPower(1);
+//        Leftservo.setPower(1);
+//        Rightservo.setPower(1);
     }
 
     public void stopIntake(){
         Intake.setPower(0);
-        Leftservo.setPower(0);
-        Rightservo.setPower(0);
+//        Leftservo.setPower(0);
+//        Rightservo.setPower(0);
 
     }
 }
