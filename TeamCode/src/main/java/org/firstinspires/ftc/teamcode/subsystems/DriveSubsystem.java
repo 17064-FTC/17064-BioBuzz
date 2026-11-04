@@ -64,6 +64,15 @@ public class DriveSubsystem {
     public void zeroGyro() {
         gyro.resetYaw();
     }
+    public void zeroForward() {
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+    public void zeroRight() {
+        rearLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rearLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
 
     public double getForwardPose() {
         double returnDistance = frontLeft.getCurrentPosition();

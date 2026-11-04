@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.acmerobotics.dashboard.FtcDashboard;
 
 
 @TeleOp
@@ -22,9 +23,14 @@ public class BasicTeleOp extends TurtleOpMode {
             drive.zeroGyro();
         }
 
+        if(gamepad1.start){
+            drive.zeroForward();
+            drive.zeroRight();
+        }
+
 
         telemetry.addLine("Operator - Left Bumper = intake");
-        if (gamepad2.left_bumper) {
+        if (gamepad2.left_bumper || gamepad1.left_bumper) {
             intake.startIntake();
 
         } else {
@@ -40,9 +46,14 @@ public class BasicTeleOp extends TurtleOpMode {
             delivery.stopDelivery();
         }
 
-        telemetry.addLine("Operator - Right Bumper = Shooter");
-        if (gamepad2.right_bumper) {
-            shooter.startShooter();
+        telemetry.addLine("Operator - Y = Shoot Pollen");
+        telemetry.addLine("Operator - X or B = Shoot Nectar");
+        if (gamepad2.y || gamepad1.y) {
+            shooter.startPollenShooter();
+
+        }
+        else if (gamepad2.x || gamepad1.x || gamepad2.b || gamepad1.b ) {
+            shooter.startNectarShooter();
 
         } else {
             shooter.stopShooter();
