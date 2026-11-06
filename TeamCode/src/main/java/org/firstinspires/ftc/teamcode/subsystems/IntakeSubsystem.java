@@ -26,10 +26,14 @@ public class IntakeSubsystem {
 //        Rightservo.setPower(1);
     }
 
-    public void stopIntake(){
+    public void stopIntake() {
         Intake.setPower(0);
 //        Leftservo.setPower(0);
 //        Rightservo.setPower(0);
-
+    }
+    public void reverseIntake(){
+        Intake.setPower(-1);
+//        Leftservo.setPower(-1);
+//        Rightservo.setPower(-1);
     }
 }

@@ -29,8 +29,8 @@ public class BasicTeleOp extends TurtleOpMode {
         }
 
 
-        telemetry.addLine("Operator - Left Bumper = intake");
-        if (gamepad2.left_bumper || gamepad1.left_bumper) {
+        telemetry.addLine("Operator - D-Pad Up = Intake");
+        if (gamepad2.dpad_up) {
             intake.startIntake();
 
         } else {
@@ -57,6 +57,21 @@ public class BasicTeleOp extends TurtleOpMode {
 
         } else {
             shooter.stopShooter();
+        }
+        telemetry.addLine("Operator - D-Pad Down = Reverse Intake & Reverse Delivery (Get EVERYTHING out!)");
+        if (gamepad2.dpad_down) {
+            intake.reverseIntake();
+            delivery.reverseDelivery();
+
+        } else {
+            intake.stopIntake();
+            delivery.stopDelivery();
+            telemetry.addLine("Operator - A = Reverse Shooter");
+            if (gamepad2.a) {
+                shooter.reverseShooter();
+
+            } else {
+                shooter.stopShooter();
         }
 
     }

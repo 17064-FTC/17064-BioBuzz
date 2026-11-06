@@ -15,4 +15,8 @@ public class DeliverySubsystem {
     public void stopDelivery (){
         mailmanServo.setPower(0);
     }
+
+    public void reverseDelivery (){
+        mailmanServo.setPower(-1);
+    }
 }

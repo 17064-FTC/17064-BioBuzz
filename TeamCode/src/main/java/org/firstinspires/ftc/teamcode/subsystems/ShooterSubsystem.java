@@ -2,20 +2,22 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Config
 public class ShooterSubsystem {
 
-    DcMotor Shooter;
+    DcMotorEx Shooter;
 
 
     public static double ShootPollenPower = 0.5;
+    public static double ShootPollenVelocity = 1250;
     public static double ShootNectarPower = 0.5;
 
     public ShooterSubsystem(HardwareMap hardwareMap){
-        Shooter = hardwareMap.get(DcMotor.class,"Shooter");
-
+        Shooter = hardwareMap.get(DcMotorEx.class,"Shooter");
+        Shooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
     }
 
@@ -24,7 +26,9 @@ public class ShooterSubsystem {
 
     }
     public void startPollenShooter(){
-        Shooter.setPower(ShootPollenPower);
+        Shooter.setVelocity(ShootPollenVelocity);
+
+        //Shooter.setPower(ShootPollenPower);
 
     }
 
@@ -33,8 +37,13 @@ public class ShooterSubsystem {
 
     }
 
+    public void reverseShooter(){
+        Shooter.setPower(-1);
+    }
+
     public void stopShooter(){
-        Shooter.setPower(0);
+        Shooter.setVelocity(0);
+        //Shooter.setPower(0);
 
     }
 
