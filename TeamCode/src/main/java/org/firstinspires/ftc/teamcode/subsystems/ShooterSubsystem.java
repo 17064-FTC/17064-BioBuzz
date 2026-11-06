@@ -12,7 +12,7 @@ public class ShooterSubsystem {
 
 
     public static double ShootPollenPower = 0.5;
-    public static double ShootPollenVelocity = 1250;
+    public static double ShootPollenVelocity = 1200;
     public static double ShootNectarPower = 0.5;
 
     public ShooterSubsystem(HardwareMap hardwareMap){
