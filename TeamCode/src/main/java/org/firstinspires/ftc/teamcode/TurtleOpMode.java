@@ -7,6 +7,8 @@ import org.firstinspires.ftc.teamcode.subsystems.DeliverySubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.ShooterSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.FlowerSubsystem;
+
 
 
 public class TurtleOpMode extends OpMode {
@@ -16,6 +18,8 @@ public class TurtleOpMode extends OpMode {
     DeliverySubsystem delivery;
     ShooterSubsystem shooter;
 
+    FlowerSubsystem flower;
+
 
     @Override
     public void init() {
@@ -23,6 +27,7 @@ public class TurtleOpMode extends OpMode {
         intake = new IntakeSubsystem(hardwareMap);
         delivery = new DeliverySubsystem(hardwareMap);
         shooter = new ShooterSubsystem(hardwareMap);
+        flower = new FlowerSubsystem(hardwareMap);
     }
 
     @Override

@@ -47,6 +47,10 @@ public class ShooterSubsystem {
 
     }
 
+    public double getVelocity(){
+        return Shooter.getVelocity();
+    }
+
 
 }
 
