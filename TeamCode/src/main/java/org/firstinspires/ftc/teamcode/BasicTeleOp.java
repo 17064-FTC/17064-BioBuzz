@@ -72,6 +72,7 @@ public class BasicTeleOp extends TurtleOpMode {
 
             } else {
                 shooter.stopShooter();
+            }
         }
 
     }

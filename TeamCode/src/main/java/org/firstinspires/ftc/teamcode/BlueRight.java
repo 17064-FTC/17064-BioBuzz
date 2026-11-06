@@ -26,7 +26,7 @@ public class BlueRight extends TurtleOpMode {
             drive.zeroGyro();
             step = 11;
         } else if (step == 5) {
-            if (timer.seconds() >= 10) {
+            if (timer.seconds() >= 0.5) {
                 step = 11;
 
             }
