@@ -29,9 +29,9 @@ public class BlueTippedDown extends TurtleOpMode {
             10 - Delay start of code
         Step 100 = Shoot preloads
             100 - Start Shooter
-            110 - Wait 1.5 Seconds
+            110 - Wait 2 Seconds
             120 - Start Delivery
-            130 - Wait 3 Seconds
+            130 - Wait 4 Seconds
             140 - Stop All Systems
         Step 200 = Move to park
             200 - Move Back 18 Inches
