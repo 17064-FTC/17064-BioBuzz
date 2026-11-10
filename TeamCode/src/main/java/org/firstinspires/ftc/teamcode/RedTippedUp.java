@@ -2,10 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class RedLeft extends TurtleOpMode {
+public class RedTippedUp extends TurtleOpMode {
 
     int step = 0;
 
@@ -23,10 +22,9 @@ public class RedLeft extends TurtleOpMode {
         if (step == 0) {
             timer.reset();
             drive.zeroGyro();
-            step = 5;
+            step = 11;
         } else if (step == 5) {
-
-            if (timer.seconds() >= 10) {
+            if (timer.seconds() >= 0.5) {
                 step = 11;
 
             }
@@ -71,7 +69,7 @@ public class RedLeft extends TurtleOpMode {
 
         } else if (step == 20) {
 
-            drive.autoMove(-18, 0, 0);
+            drive.autoMove(0, -35, 0);
 
             if (drive.isRobotAtTarget()) {
                 timer.reset();
@@ -86,7 +84,7 @@ public class RedLeft extends TurtleOpMode {
 
         } else if (step == 30) {
 
-            drive.autoMove(0, 43, 0);
+            drive.autoMove(-90, 0, 0);
 
             if (drive.isRobotAtTarget()) {
                 timer.reset();
@@ -96,8 +94,19 @@ public class RedLeft extends TurtleOpMode {
 
             if (timer.seconds() >= 0.5) {
 
-                step =1000;
+                step = 40;
             }
+
+        } else if (step == 40) {
+
+                    drive.autoMove(0, -8, 0);
+
+                    if (drive.isRobotAtTarget()) {
+                        timer.reset();
+                        step = 1234567890;
+                    }
+
+
 
         }
 

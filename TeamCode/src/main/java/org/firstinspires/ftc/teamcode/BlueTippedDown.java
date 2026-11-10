@@ -2,12 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import java.util.Timer;
 
 @Autonomous
-public class BlueLeft extends TurtleOpMode {
+public class BlueTippedDown extends TurtleOpMode {
 
     int step = 0;
 
