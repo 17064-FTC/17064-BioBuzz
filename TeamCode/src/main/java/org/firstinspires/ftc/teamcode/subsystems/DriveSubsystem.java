@@ -15,10 +15,10 @@ public class DriveSubsystem {
     DcMotorEx frontLeft, frontRight, rearLeft, rearRight;
     IMU gyro ;
     boolean isRobotAtTarget = true;
-    double autoMoveKP = 0.1,    autoTurnKP = 0.1;
+    double autoMoveKP = 0.04, autoStrafeKP = 0.08,   autoTurnKP = 0.01;
     double autoMoveTolerance = 1, autoTurnTolerance = 1;
-    double forwardOffset = 0, rightOffset = 0, turnOffset = 0;
-    double forwardPodOffset = 5, rightPodOffset = 2;
+    double forwardOffset = 0, leftOffset = 0, turnOffset = 0;
+    double forwardPodOffset = 6.25, leftPodOffset = -1;
 
     /**
      * Assumes Drive Motors are configured as leftFront, rightFront, leftRear, and rightRear
@@ -46,9 +46,9 @@ public class DriveSubsystem {
         gyro = hardwareMap.get(IMU.class, "imu");
         // This needs to be changed to match the orientation on your robot
         RevHubOrientationOnRobot.LogoFacingDirection logoDirection =
-                RevHubOrientationOnRobot.LogoFacingDirection.UP;
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
         RevHubOrientationOnRobot.UsbFacingDirection usbDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
 
         RevHubOrientationOnRobot orientationOnRobot = new
                 RevHubOrientationOnRobot(logoDirection, usbDirection);
@@ -56,44 +56,59 @@ public class DriveSubsystem {
     }
 
     public void populateTelemetry() {
-        telemetry.addData("Forward Pose", frontLeft.getCurrentPosition());
-        telemetry.addData("Right Pose", rearRight.getCurrentPosition());
+        telemetry.addData("Forward Pose", getForwardPose());
+        telemetry.addData("Right Pose", getLeftPose());
         telemetry.addData("Current Angle", gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
     }
 
     public void zeroGyro() {
         gyro.resetYaw();
     }
+    public void zeroForward() {
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+    public void zeroRight() {
+        rearLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rearLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
 
     public double getForwardPose() {
         double returnDistance = frontLeft.getCurrentPosition();
-        returnDistance /= 1; //TODO: Determine Ticks Per Inch
-        returnDistance -= gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS) * forwardPodOffset;
+        returnDistance /= 505; //TODO: Determine Ticks Per Inch
+        returnDistance += gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS) * forwardPodOffset;
         returnDistance -= forwardOffset;
 
         return returnDistance;
     }
 
-    public double getRightPose() {
-        double returnDistance = rearRight.getCurrentPosition();
-        returnDistance /= 1; //TODO: Determine Ticks Per Inch
-        returnDistance -= gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS) * rightPodOffset;
-        returnDistance -= rightOffset;
+    public double getLeftPose() {
+        double returnDistance = rearLeft.getCurrentPosition();
+        returnDistance /= 505; //TODO: Determine Ticks Per Inch
+        returnDistance += gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS) * leftPodOffset;
+        returnDistance -= leftOffset;
 
         return returnDistance;
     }
 
-    public void autoMove(double distanceForward, double distanceRight, double endAngle) {
+    public void autoMove(double distanceForward, double distanceLeft, double endAngle) {
         //Translational Math
         //Calculate Error
         double forwardError = distanceForward - getForwardPose();
-        double rightError = distanceRight - getRightPose();
+        double rightError = distanceLeft - getLeftPose();
 
         //Calculate Power
         double forwardPower = forwardError * autoMoveKP;
-        double rightPower = rightError * autoMoveKP;
+        double rightPower = rightError * autoStrafeKP;
 
+        if (Math.abs(forwardPower) > 0.5) {
+            forwardPower = Math.copySign(0.5, forwardPower);
+        }
 
+        if (Math.abs(rightPower) > 0.5) {
+            rightPower = Math.copySign(0.5, rightPower);
+        }
 
         //Rotational Math
         //Calculate Error
@@ -121,7 +136,7 @@ public class DriveSubsystem {
         } else if (isRobotAtTarget) {
             //TODO Training Wheels Protocol (Spider-Man Reference!!!)
             forwardOffset = getForwardPose() + forwardOffset;
-            rightOffset = getRightPose() + rightOffset;
+            leftOffset = getLeftPose() + leftOffset;
             turnOffset = -gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             isRobotAtTarget = false;
             return;
@@ -129,9 +144,9 @@ public class DriveSubsystem {
 
         //Apply Correct Power
         if (isRobotAtTarget) {
-            fieldCentricDrive(0, 0, 0);
+            robotCentricDrive(0, 0, 0);
         } else {
-            fieldCentricDrive(forwardPower, rightPower, turnPower);
+            robotCentricDrive(forwardPower, -rightPower, -turnPower);
         }
     }
 
@@ -139,7 +154,7 @@ public class DriveSubsystem {
         return isRobotAtTarget;
     }
 
-     //This routine drives the robot field relative
+    //This routine drives the robot field relative
     public void fieldCentricDrive(double forward, double right, double rotate) {
         // First, convert direction being asked to drive to polar coordinates
         double theta = Math.atan2(forward, right);
