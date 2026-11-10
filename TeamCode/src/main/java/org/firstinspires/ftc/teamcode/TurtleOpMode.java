@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.subsystems.DeliverySubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
@@ -17,8 +18,9 @@ public class TurtleOpMode extends OpMode {
     IntakeSubsystem intake;
     DeliverySubsystem delivery;
     ShooterSubsystem shooter;
-
     FlowerSubsystem flower;
+
+    ElapsedTime timer = new ElapsedTime();
 
 
     @Override

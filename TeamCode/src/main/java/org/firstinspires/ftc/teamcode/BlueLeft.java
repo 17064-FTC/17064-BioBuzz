@@ -10,11 +10,9 @@ import java.util.Timer;
 public class BlueLeft extends TurtleOpMode {
 
     int step = 0;
-    ElapsedTime timer = new ElapsedTime();
 
     @Override
     public void init() {
-
         super.init();
     }
 
@@ -23,83 +21,106 @@ public class BlueLeft extends TurtleOpMode {
         super.loop();
         telemetry.addLine("Step: " + step);
 
+        /*
+
+        Hundreds Place = Major Step
+        Tens Place = Minor Step
+        Ones Place = Frantic Debug (At Comp Fixes, should be changed before the next event)
+
+        Step 0 = Start auto
+            0 - Reset Gyro
+            10 - Delay start of code
+        Step 100 = Shoot preloads
+            100 - Start Shooter
+            110 - Wait 1.5 Seconds
+            120 - Start Delivery
+            130 - Wait 3 Seconds
+            140 - Stop All Systems
+        Step 200 = Move to park
+            200 - Move Back 18 Inches
+            210 - Dwell Timer
+            220 - Move Left 43 Inches
+            230 - Dwell Timer
+
+         */
+
         if (step == 0) {
             timer.reset();
             drive.zeroGyro();
-            step = 5;
-        } else if (step == 5) {
+            step = 10;
+        } else if (step == 10) {
 
             if (timer.seconds() >= 10) {
-                step = 11;
+                step = 100;
 
             }
-        } else if (step == 11) {
+        } else if (step == 100) {
 
             shooter.startPollenShooter();
             timer.reset();
 
-            step = 12;
+            step = 110;
 
 
 
-        } else if (step == 12) {
+        } else if (step == 110) {
 
             if (timer.seconds() >= 2) {
-                step = 13;
+                step = 120;
             }
-        } else if (step == 13) {
+        } else if (step == 120) {
 
             delivery.startDelivery();
             intake.startIntake();
             timer.reset();
 
-            step = 14;
+            step = 130;
 
 
-        } else if (step == 14) {
+        } else if (step == 130) {
 
             if (timer.seconds() >= 4) {
-                step = 15;
+                step = 140;
 
             }
-        } else if (step == 15) {
+        } else if (step == 140) {
 
             intake.stopIntake();
             delivery.stopDelivery();
             shooter.stopShooter();
 
-            step = 20;
+            step = 200;
 
 
 
-        } else if (step == 20) {
+        } else if (step == 200) {
 
             drive.autoMove(-18, 0, 0);
 
             if (drive.isRobotAtTarget()) {
                 timer.reset();
-                step = 25;
+                step = 210;
             }
-        } else if (step == 25) {
+        } else if (step == 210) {
 
             if (timer.seconds() >= 0.5) {
-                step = 30;
+                step = 220;
 
             }
 
-        } else if (step == 30) {
+        } else if (step == 220) {
 
             drive.autoMove(0, 43, 0);
 
             if (drive.isRobotAtTarget()) {
                 timer.reset();
-                step = 35;
+                step = 230;
             }
-        } else if (step == 35) {
+        } else if (step == 230) {
 
             if (timer.seconds() >= 0.5) {
 
-                step =1000;
+                step = 300;
             }
 
         }

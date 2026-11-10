@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class BlueRight extends TurtleOpMode {
 
     int step = 0;
-    ElapsedTime timer = new ElapsedTime();
 
     @Override
     public void init() {
