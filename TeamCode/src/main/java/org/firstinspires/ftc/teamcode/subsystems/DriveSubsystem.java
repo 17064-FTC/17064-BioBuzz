@@ -154,7 +154,7 @@ public class DriveSubsystem {
         return isRobotAtTarget;
     }
 
-     //This routine drives the robot field relative
+    //This routine drives the robot field relative
     public void fieldCentricDrive(double forward, double right, double rotate) {
         // First, convert direction being asked to drive to polar coordinates
         double theta = Math.atan2(forward, right);
