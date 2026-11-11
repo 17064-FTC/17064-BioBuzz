@@ -20,104 +20,104 @@ public class BlueTippedDown extends TurtleOpMode {
 
         /*
 
-        Hundreds Place = Major Step
+        Thousands Place = Major Step
         Tens Place = Minor Step
         Ones Place = Frantic Debug (At Comp Fixes, should be changed before the next event)
 
-        Step 0 = Start auto
-            0 - Reset Gyro
-            10 - Delay start of code
-        Step 100 = Shoot preloads
-            100 - Start Shooter
-            110 - Wait 2 Seconds
-            120 - Start Delivery
-            130 - Wait 4 Seconds
-            140 - Stop All Systems
-        Step 200 = Move to park
-            200 - Move Back 18 Inches
-            210 - Dwell Timer
-            220 - Move Left 43 Inches
-            230 - Dwell Timer
+        Step 0000 = Start auto
+            0000 - Reset Gyro
+            0010 - Delay start of code
+        Step 1000 = Shoot preloads
+            1000 - Start Shooter
+            1010 - Wait 2 Seconds
+            1020 - Start Delivery
+            1030 - Wait 4 Seconds
+            1040 - Stop All Systems
+        Step 2000 = Move to park
+            2000 - Move Back 18 Inches
+            2010 - Dwell Timer
+            2020 - Move Left 43 Inches
+            2030 - Dwell Timer
 
          */
 
-        if (step == 0) {
+        if (step == 0000) {
             timer.reset();
             drive.zeroGyro();
-            step = 10;
-        } else if (step == 10) {
+            step = 0010;
+        } else if (step == 0010) {
 
             if (timer.seconds() >= 10) {
-                step = 100;
+                step = 1000;
 
             }
-        } else if (step == 100) {
+        } else if (step == 1000) {
 
             shooter.startPollenShooter();
             timer.reset();
 
-            step = 110;
+            step = 1010;
 
 
 
-        } else if (step == 110) {
+        } else if (step == 1010) {
 
             if (timer.seconds() >= 2) {
-                step = 120;
+                step = 1020;
             }
-        } else if (step == 120) {
+        } else if (step == 1020) {
 
             delivery.startDelivery();
             intake.startIntake();
             timer.reset();
 
-            step = 130;
+            step = 1030;
 
 
-        } else if (step == 130) {
+        } else if (step == 1030) {
 
             if (timer.seconds() >= 4) {
-                step = 140;
+                step = 1040;
 
             }
-        } else if (step == 140) {
+        } else if (step == 1040) {
 
             intake.stopIntake();
             delivery.stopDelivery();
             shooter.stopShooter();
 
-            step = 200;
+            step = 2000;
 
 
 
-        } else if (step == 200) {
+        } else if (step == 2000) {
 
             drive.autoMove(-18, 0, 0);
 
             if (drive.isRobotAtTarget()) {
                 timer.reset();
-                step = 210;
+                step = 2010;
             }
-        } else if (step == 210) {
+        } else if (step == 2010) {
 
             if (timer.seconds() >= 0.5) {
-                step = 220;
+                step = 2020;
 
             }
 
-        } else if (step == 220) {
+        } else if (step == 2020) {
 
             drive.autoMove(0, 43, 0);
 
             if (drive.isRobotAtTarget()) {
                 timer.reset();
-                step = 230;
+                step = 2030;
             }
-        } else if (step == 230) {
+        } else if (step == 2030) {
 
             if (timer.seconds() >= 0.5) {
 
-                step = 300;
+                step = 3000;
             }
 
         }
