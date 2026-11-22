@@ -22,8 +22,6 @@ public class TurtleOpMode extends OpMode {
     ShooterSubsystem shooter;
     FlowerSubsystem flower;
 
-    ElapsedTime timer = new ElapsedTime();
-
 
     @Override
     public void init() {

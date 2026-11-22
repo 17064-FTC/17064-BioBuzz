@@ -4,19 +4,23 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class DeliverySubsystem {
-    CRServo mailmanServo;
+    CRServo feederLeft, feederRight;
     public DeliverySubsystem (HardwareMap hardwareMap) {
-        mailmanServo = hardwareMap.get(CRServo.class, "randomValue");
+        feederLeft = hardwareMap.get(CRServo.class, "feederLeft");
+        feederRight = hardwareMap.get(CRServo.class, "feederRight");
     }
 
     public void startDelivery (){
-        mailmanServo.setPower(1);
+        feederLeft.setPower(1);
+        feederRight.setPower(1);
     }
     public void stopDelivery (){
-        mailmanServo.setPower(0);
+        feederLeft.setPower(0);
+        feederRight.setPower(0);
     }
 
     public void reverseDelivery (){
-        mailmanServo.setPower(-1);
+        feederLeft.setPower(-1);
+        feederRight.setPower(-1);
     }
 }
