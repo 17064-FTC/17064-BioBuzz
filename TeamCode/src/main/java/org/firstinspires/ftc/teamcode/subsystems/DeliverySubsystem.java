@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class DeliverySubsystem {
@@ -8,6 +9,8 @@ public class DeliverySubsystem {
     public DeliverySubsystem (HardwareMap hardwareMap) {
         feederLeft = hardwareMap.get(CRServo.class, "feederLeft");
         feederRight = hardwareMap.get(CRServo.class, "feederRight");
+
+        feederLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void startDelivery (){

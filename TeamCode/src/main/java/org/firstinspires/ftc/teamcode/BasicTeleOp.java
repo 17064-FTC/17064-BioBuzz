@@ -29,20 +29,6 @@ public class BasicTeleOp extends TurtleOpMode {
         }
 
 
-        telemetry.addLine("Operator - D-Pad Up = Intake");
-        telemetry.addLine("Operator - D-Pad Down = Reverse Intake");
-        if (gamepad2.dpad_up || gamepad1.dpad_up) {
-            intake.startIntake();
-
-        } else if (gamepad2.dpad_down || gamepad1.dpad_down){
-            intake.reverseIntake();
-
-
-
-        } else {
-            intake.stopIntake();
-        }
-
         if (gamepad2.dpad_left){
             flower.extendFlower();
         }
@@ -51,21 +37,26 @@ public class BasicTeleOp extends TurtleOpMode {
         }
 
 
+        telemetry.addLine("Operator - D-Pad Up = Intake");
+        telemetry.addLine("Operator - D-Pad Down = Reverse Intake");
         telemetry.addLine("Driver - Right bumper = Feeder");
         telemetry.addLine("Driver - Left bumper = Reverse Feeder");
-        if (gamepad1.right_bumper && (shooter.getVelocity() > shooter.ShootPollenVelocity-20)) {
+        if (gamepad1.right_bumper && (shooter.getVelocity() > shooter.ShootPollenVelocity-50)) {
             delivery.startDelivery();
-
+            intake.startIntake();
         } else if (gamepad2.right_bumper){
             delivery.startDelivery();
-        }
-
-        else if (gamepad1.left_bumper || gamepad2.left_bumper){
+        } else if (gamepad1.left_bumper || gamepad2.left_bumper) {
             delivery.reverseDelivery();
-
+        } else if (gamepad2.dpad_up || gamepad1.dpad_up) {
+            intake.startIntake();
+        } else if (gamepad2.dpad_down || gamepad1.dpad_down){
+            intake.reverseIntake();
         } else {
             delivery.stopDelivery();
+            intake.stopIntake();
         }
+
 
         telemetry.addLine("Operator - Y = Shoot Pollen");
         telemetry.addLine("Operator - A = Reverse Shooter");

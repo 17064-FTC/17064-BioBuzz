@@ -28,13 +28,14 @@ public class TurtleOpMode extends OpMode {
         drive = new DriveSubsystem(telemetry, hardwareMap);
         intake = new IntakeSubsystem(hardwareMap);
         delivery = new DeliverySubsystem(hardwareMap);
-        shooter = new ShooterSubsystem(hardwareMap);
+        shooter = new ShooterSubsystem(telemetry, hardwareMap);
         flower = new FlowerSubsystem(hardwareMap);
     }
 
     @Override
     public void loop() {
         drive.populateTelemetry();
+        shooter.populateTelemetry();
     }
 
 }
